@@ -7,4 +7,4 @@ USAGE="python code_check.py cfile ofile coding"
 
 
 
-目前只实用C语言和c++
+目前只适用C语言和c++。
