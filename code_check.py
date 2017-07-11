@@ -1,6 +1,6 @@
 #############################
 #target:tranfer c++ file to right c++ style
-#author:hdz(hedezhu@sogou-inc.com)
+#author:hdz
 #time:2014-12-30 14:54:29
 USAGE="python code_check.py cfile ofile coding"
 #############################
