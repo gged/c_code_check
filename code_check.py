@@ -272,7 +272,8 @@ def check_braces(l):#{}
     while i<len(l):
         while l[i][-1]==' ':#delete blank end
             l[i]=l[i][:-1]
-        if l[i][0][:2]=='//' or (len(l[i])>1 and\
+        #if l[i][0][:2]=='//' or (len(l[i])>1 and\
+        if l[i][0][:2].lstrip()=='//' or (len(l[i])>1 and\
                 l[i][0].strip()=='' and l[i][1][:2]=='//'):
             pass
         elif l[i][-1]=='{':
@@ -371,9 +372,11 @@ def check_braces_blank(res):
     no_end=False #,\
     pubpri=0
     nres=[]
+    line_num = 1
     for line in res:
+        line_num += 1
         if bnum<0:
-            sys.stderr.write('bnum<0:'+line+'\n')
+            sys.stderr.write(str(line_num)+'bnum<0:'+line+'\n')
             bnum=0
         line=line.lstrip().replace('\t',' '*tab_width)
         if len(line)==0:
@@ -399,7 +402,9 @@ def check_braces_blank(res):
             continue
         if line.find('{')!=-1:
             nres.append(' '*tab_width*bnum+line)
-            if line.find('}')==-1:
+            if line.lstrip()[:2]=='//':
+                continue
+            elif line.find('}')==-1:
                 bnum+=1
             else:
                 bnum+=line.count('{')-line.count('}')
@@ -414,6 +419,8 @@ def check_braces_blank(res):
                 nres.append(' '*tab_width*bnum+line)
             else:
                 nres.append(' '*tab_width*bnum+line)
+                if line.lstrip()[:2]=='//':
+                    continue
                 bnum-=1
                 if bnum<pubpri:
                     pubpri=0
