@@ -270,8 +270,11 @@ def check_braces(l):#{}
     nl=[]
     i=0
     while i<len(l):
-        while l[i][-1]==' ':#delete blank end
+        while len(l[i])>0 and l[i][-1]==' ':#delete blank end
             l[i]=l[i][:-1]
+        if len(l[i])==0:
+            i+=1
+            continue
         #if l[i][0][:2]=='//' or (len(l[i])>1 and\
         if l[i][0][:2].lstrip()=='//' or (len(l[i])>1 and\
                 l[i][0].strip()=='' and l[i][1][:2]=='//'):
